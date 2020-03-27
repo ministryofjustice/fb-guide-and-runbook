@@ -1,0 +1,18 @@
+title: MOJ Form Builder Documentation
+
+permalink: pretty
+
+header_links:
+  GitHub: https://github.com/ministryofjustice/fb-runbooks/
+
+defaults:
+  -
+    scope:
+      path: "guides"
+    values:
+      guide: true
+  -
+    scope:
+      path: "hosting"
+    values:
+      hosting: true
