@@ -72,7 +72,10 @@ In each of these environments there are two namespaces - Services and Platform. 
 
 There are then two publisher environments, one for test and one for live.
 
-start again
+### Other Help
+[Cloud Platforms Trouble Shooting Guide](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/other-topics/troubleshooting.html#troubleshooting-guide])
+
+Post a message in the #ask-cloud-platform slack channel.
 
 {% assign hostings = site.pages
   | where: "hosting", true
@@ -89,8 +92,6 @@ start again
 - [{{ hosting.title }}]({{ hosting.url | relative_url }})
 {% endfor %}
 {% endfor %}
-
-end
 
 ## Technical and Security Guidance
 
