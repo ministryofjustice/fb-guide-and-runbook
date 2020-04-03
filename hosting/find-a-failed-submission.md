@@ -9,14 +9,26 @@ If there’s a failed submission in the queue, you should see a notification in 
 Once you know which environment the failure is in, log on to one of the submitter components through Kubernetes.
 
 * Identify the submitter pods that you can log in to
-```kubectl get pods -n formbuilder-platform-live-production | grep submitter-worker```
+```
+kubectl get pods -n formbuilder-platform-live-production | grep submitter-worker
+```
 * Log in to one of those pods
-```kubectl exec -ti -n formbuilder-platform-live-production POD_NAME ash```
+```
+kubectl exec -ti -n formbuilder-platform-live-production POD_NAME ash
+```
 * Start a Ruby on rails console
-```bundle exec rails c```
+```
+bundle exec rails c
+```
 * Identify the first failed job
-```dj = Delayed::Job.first```
+```
+dj = Delayed::Job.first
+```
 * Display the stack trace of the error
-```dj.last_error```
+```
+dj.last_error
+```
 * Find the location of the submission
-```Submission.find(dj.payload_object.submission_id)```
+```
+Submission.find(dj.payload_object.submission_id)
+```
