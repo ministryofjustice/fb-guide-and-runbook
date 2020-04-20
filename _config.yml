@@ -16,3 +16,8 @@ defaults:
       path: "hosting"
     values:
       hosting: true
+  -
+    scope:
+      path: "troubleshooting"
+    values:
+      troubleshooting: true

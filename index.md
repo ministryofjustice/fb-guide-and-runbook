@@ -44,6 +44,25 @@ For help using Form Builder, email the Form Builder team on form-builder-team@di
 {% endfor %}
 {% endfor %}
 
+## Troubleshooting
+
+{% assign troubleshootings = site.pages
+  | where: "troubleshooting", true
+  | group_by: "category" %}
+
+{% for troubleshooting_group in troubleshootings %}
+{% if troubleshooting_group.name != "" %}
+### {{ troubleshooting_group.name }}
+{% else %}
+### General
+{% endif %}
+
+{% for troubleshooting in troubleshooting_group.items %}
+- [{{ troubleshooting.title }}]({{ troubleshooting.url | relative_url }})
+{% endfor %}
+{% endfor %}
+
+
 ## Hosting
 Form Builder is hosted on the Ministry of Justice Cloud Platform. To be able to use it, you need to connect to the cluster.
 
