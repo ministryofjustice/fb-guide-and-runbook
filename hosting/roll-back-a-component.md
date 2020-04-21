@@ -1,5 +1,5 @@
 ---
-category: Hosting Runbook
+category: Runbook
 expires: 2020-03-31
 ---
 
