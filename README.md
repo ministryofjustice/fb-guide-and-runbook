@@ -1,10 +1,5 @@
-# TO BE UPDATED
-
-# Technical guidance
-
-How we build and operate products at the Ministry of Justice. This repo
-is inspired by, and borrows from, [GDS's technical guidance][gds-way]
-site.
+# Form Builder Guide and Runbooks
+This is the guide and runbook for the Form Builder Platform.
 
 It's built using [Jekyll][], and hosted using [GitHub Pages][]. It
 incorporates HTML, SCSS, JavaScript, and images from [GDS's Tech Docs
@@ -67,3 +62,16 @@ in a pull request, no matter how minor, and we've enabled [branch
 protection][] to enforce this.
 
 [branch protection]: https://help.github.com/articles/about-protected-branches/
+
+
+## Adding new guidance
+
+Create a new Markdown file that follows this pattern, add a link to it
+from this page, and make a pull request:
+
+```markdown
+---
+category: The broader area this fits into
+expires: yyyy-mm-dd (6 months from now)
+---
+
