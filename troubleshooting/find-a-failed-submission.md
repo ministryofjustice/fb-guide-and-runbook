@@ -35,7 +35,7 @@ You can also log into one of the Submitter API pods and take a look at the error
 ~~~~~~~~
 kubectl exec -ti -n formbuilder-platform-test-dev fb-submitter-api-test-dev-<identifier>  -- bash
 ~~~~~~~~
-Then run a Rails console: 
+Then run a Rails console:
 ~~~~~~~~
 bundle exec rails c
 ~~~~~~~~
@@ -62,7 +62,7 @@ Delayed::Job.last.last_error
 
 ### Replaying failed jobs
 
-Once you are happy that it is ok to replay the failed job you will need to re-encrypt the payload of the Submission related to the Delayed Job. First get the Submission ID. Why the re-encryption is required is a good question. There seems to be some connection between when the payload is encrypted and the JWT skew validation that happens between the platform apps. Needs further investigating.
+Once you are happy that it is ok to replay the failed job you will need to re-encrypt the payload of the Submission related to the Delayed Job.
 
 For example if the Delayed Job you need to replay is the last one:
 
@@ -74,16 +74,28 @@ submission_id = Delayed::Job.last.handler
 submission = Submission.find_by_id(submission_id)
 ~~~~~~~~
 
-The payload is encrypted. Unfortunately you will need to decrypt it before you can re-encrypt it again:
+The payload is encrypted. Unfortunately you will need to decrypt it before you can re-encrypt it again. At this point if you need to make any changes to the payload because it is invalid this would be time.
 
 ~~~~~~~~
 submission.update(payload: EncryptionService.new.encrypt(submission.decrypted_payload))
 ~~~~~~~~
 
-Then you can update the `run_at` parameter of required Delayed Job so that it runs again when you want it to. In this example we just used 10 seconds as an arbitrary time.
+There are 2 rake tasks that can be run in order to replay a Delayed Job. These will need to be run from outside the Rails console, but still on the Submitter container, in the normal way. This first replays a submission without any attachments. So for a submission with the ID '12345':
 
 ~~~~~~~~
-Delayed::Job.last.update(run_at: Time.now + 10.seconds)
+bundle exec rake replay_submission:process[12345]
+~~~~~~~~
+
+The second is for replaying submissions which have attachments. The filestore only validates JWT's that were created 60 seconds or less ago. So to replay any submissions with attachments after that we need to override the leeway using the rake task:
+
+~~~~~~~~
+bundle exec rake replay_submission:with_attachments[12345,600]
 ~~~~~~~~
 
 All being well you will no longer see that Delayed Job in the queue any longer. Great success!
+
+If for some reason you are running these rake tasks using zsh you need wrap the rake command in quotes:
+
+~~~~~~~~
+bundle exec rake 'replay_submission:process[12345]'
+~~~~~~~~
