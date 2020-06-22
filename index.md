@@ -77,10 +77,7 @@ The live environment holds all the production forms.
 **Test**
 The test environment is for testing component changes (eg runner, file store, data store, pdf generator).
 
-Within each of these environments the user has two environments - Staging and Production.
-
-**Staging**
-Form Editors can use Staging to keep test versions of their forms for checking before going live with them.
+Within each of these environments the user has two environments - Dev and Production.
 
 **Production**
 Once a form editor is ready to make their form fully live, they can publish it in Production.
