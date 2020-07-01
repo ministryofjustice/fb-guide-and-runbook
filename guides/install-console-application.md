@@ -27,6 +27,14 @@ You can download [here](https://sourceforge.net/projects/git-osx-installer/).
 After download, open the *.dmg file and double click the *.pkg file
 and follow the instructions.
 
+# Install Git for Desktop
+
+After Git installation above is complete, we recommend to use Git for Desktop.
+Fortunately, Git for Desktop is available for MoJ staff via Self serve.
+
+Alternatively, you can Download Git for desktop https://desktop.github.com/
+Unzip, double click the installer and follow the instructions there.
+
 # Installing the Console
 
 Form Builder Editor Console is an Electron app for users to run [Form Builder Editor](https://github.com/ministryofjustice/fb-editor-node) locally.
