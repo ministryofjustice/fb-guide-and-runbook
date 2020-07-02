@@ -30,7 +30,7 @@ and follow the instructions.
 # Install Git for Desktop
 
 After Git installation above is complete, we recommend to use Git for Desktop.
-Fortunately, Git for Desktop is available for MoJ staff via Self serve.
+Fortunately, Git for Desktop is available for MoJ staff via the Self Service app.
 
 Alternatively, you can Download Git for desktop https://desktop.github.com/
 Unzip, double click the installer and follow the instructions there.
