@@ -53,6 +53,7 @@ SENTRY_DSN | Sentry ID
 SERVICE_PATH | physical location of site metadata
 SERVICE_SECRET | Secret for encrypting values that should only be accessible by runner
 SERVICE_SHA | version of deployed form
+SUBMISSION_ENCRYPTION_KEY | The key used to encrypt the submission before sending it to the Submitter
 SUBMITTER_URL | Url for making requests to submitter
 USER_DATASTORE_URL | Url for making requests to user datastore
 USER_FILESTORE_URL | Url for making requests to user filestore
