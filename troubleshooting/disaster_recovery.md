@@ -15,33 +15,7 @@ If any environment needs to be rebuilt from scratch it should simply the case of
 
 All Form Builder applications have deployment pipelines in CircleCI. As long as the infrastructure is in place it should simply be the case to run the deployment jobs and the app containers will deploy out to the required environments.
 
-If for some reason the CircleCI jobs have been lost then each app will need to be readded and the required environment variables set. These will differ for each application but these are the basic set which all apps require:
-
-- AWS_ACCESS_KEY_ID
-
-- AWS_SECRET_ACCESS_KEY
-
-- AWS_ECR_ACCOUNT_URL - repo which holds the form builder application images
-
-- CIRCLE_TOKEN - required for triggering acceptance tests via curl. Not every job will want to trigger the acceptance tests
-
-- ENCODED_GIT_CRYPT_KEY - used for decrypting secrets for the application via git-crypt
-
-- KUBE_CERTIFICATE_AUTHORITY
-
-- KUBE_CLUSTER
-
-- KUBE_SERVER
-
-- KUBE_TOKEN - used to authenticate with the kubernetes cluster
-
-- KUBE_TOKEN_TEST_DEV
-
-- KUBE_TOKEN_TEST_PRODUCTION
-
-- KUBE_TOKEN_LIVE_DEV
-
-- KUBE_TOKEN_LIVE_PRODUCTION
+If for some reason the CircleCI jobs have been lost then each app will need to be readded and the required environment variables set. These will differ for each application. See the [fb-deploy](https://github.com/ministryofjustice/fb-deploy) repo for more instructions.
 
 ### Databases
 
