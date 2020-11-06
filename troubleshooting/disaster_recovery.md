@@ -46,3 +46,15 @@ If for some reason the CircleCI jobs have been lost then each app will need to b
 ### Databases
 
 Users main submission data is held encrypted in RDS Postgres instances which have regular snapshot backups. We would need to ask the Cloud Platform team to restore these for us if required.
+
+Currently the developers on the MoJ Online team are unable to access the AWS accounts that hold any of our databases and their snapshots. This means that we would need Cloud Platform's assistance to restore any snapshot. If a snapshot recovery is required get in contact with Cloud Platform and follow [these instructions](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/other-topics/rds-snapshots.html#restoring-live-services-from-a-rds-db-snapshot).
+
+Currently the RDS instances we have are:
+
+- Datastore
+- HMCTS Adapater
+- Metadata API
+- Publisher
+- Submitter
+
+We also have a Redis Elasticache instance connected to the Service Token Cache, but if this goes down then all the public keys will simply be retrieved from Kubernetes upon the next request to the cache.
