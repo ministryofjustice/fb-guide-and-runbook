@@ -87,6 +87,29 @@ In each of these environments there are two namespaces - Services and Platform. 
 
 There are then two publisher environments, one for test and one for live.
 
+These are the namespaces that currently make up the Form Builder product:
+
+Namespace | Purpose
+------------ | -------------
+formbuilder-base-adapter-test | The base adapter is there to emulate an API endpoint for the JSON output
+formbuilder-monitoring | Contains all the infrastructure monitoring for the Form Builder platform
+formbuilder-platform-live-dev | Contains all the platform apps for the live-dev environment
+formbuilder-platform-live-production | Contains all the platform apps for the live-production environment
+formbuilder-platform-test-dev | Contains all the platform apps for the test-dev environment
+formbuilder-platform-test-production | Contains all the platform apps for the test-production environment
+formbuilder-product-page-prod | The Form Builder product page in the production environment
+formbuilder-product-page-staging | The Form Builder product page in the staging environment
+formbuilder-publisher-live | The Form Builder publisher catering for services running in live-dev and live-production
+formbuilder-publisher-test | The Form Builder publisher catering for services running in test-dev and test-production
+formbuilder-repos | Contains all the ECR repos required for all the Form Builder applications
+formbuilder-saas-test | Contains the V2 Form Builder Editor and Metadata API applications for the test environment
+formbuilder-services-live-dev | Contains all the form services pods for the live-dev environment
+formbuilder-services-live-production | Contains all the form services pods for the live-production environment
+formbuilder-services-test-dev | Contains all the form services pods for the test-dev environment
+formbuilder-services-test-production | Contains all the form services pods for the test-production environment
+hmcts-complaints-formbuilder-adapter-production | Contains the HMCTS Complaints Adapter for the production environment
+hmcts-complaints-formbuilder-adapter-staging |  Contains the HMCTS Complaints Adapter for the staging environment
+
 {% assign hostings = site.pages
   | where: "hosting", true
   | group_by: "category" %}
