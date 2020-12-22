@@ -69,23 +69,63 @@ Form Builder is hosted on the Ministry of Justice Cloud Platform. To be able to 
 If you have any questions about the Cloud Platform, contact the Cloud Platform team on the #ask-cloud-platform Slack channel.
 
 ### Environments
-There are 2 two environments, live and test.
+Environments are split into slightly unusual groupings. It's unfortunately complicated.
 
-**Live**
-The live environment holds all the production forms.
+Environment Type | Potential Value
+------------ | -------------
+Platform Environment | `test` or `live`
+Deployment Environment | `dev` or `production`
 
-**Test**
-The test environment is for testing component changes (eg runner, file store, data store, pdf generator).
+The Platform Environment `test` is used only by developers. `live` is used by form owners and also relates to public facing forms. Conceptually it might be helpful to think of the `dev` part of the Deployment Environment to represent a "draft" or "preview" state of a service and the `production` Deployment Environment to represent a "published" state of a service.
 
-Within each of these environments the user has two environments - Dev and Production.
+These types are then amalgamated and used to describe the full namespaces (more on that below). They take the following forms:
 
-**Production**
-Once a form editor is ready to make their form fully live, they can publish it in Production.
+Platform Deployment | Description
+------------ | -------------
+test-dev | Developer only environment that is used for acceptance testing and a representation of all things in "preview" or "draft"
+test-production | Developer only environment that is effectively meant to represent a `test` version of a published service
+live-dev | Mainly used by form owners for previewing their forms
+live-production | The public facing, published forms
+
+High level overview of the platform and services as well as the user facing elements which may help to explain the groupings better:
+
+![environments overview](/images/mojo_environments.png)
+
+There are some applications that are deployed to a specific Platform Environment but they straddle both Deployment Environments
+
+- Publisher
+- V2 Editor
+- Metadata API
+
+These apps manage the transition between draft/preview and fully published.
 
 ### Namespaces
 In each of these environments there are two namespaces - Services and Platform. The Services namespace contains the runners. The Platform namespace holds all the backend components.
 
 There are then two publisher environments, one for test and one for live.
+
+These are the namespaces that currently make up the Form Builder product:
+
+Namespace | Purpose
+------------ | -------------
+formbuilder-base-adapter-test | The base adapter is there to emulate an API endpoint for the JSON output
+formbuilder-monitoring | Contains all the infrastructure monitoring for the Form Builder platform
+formbuilder-platform-live-dev | Contains all the platform apps for the live-dev environment
+formbuilder-platform-live-production | Contains all the platform apps for the live-production environment
+formbuilder-platform-test-dev | Contains all the platform apps for the test-dev environment
+formbuilder-platform-test-production | Contains all the platform apps for the test-production environment
+formbuilder-product-page-prod | The Form Builder product page in the production environment
+formbuilder-product-page-staging | The Form Builder product page in the staging environment
+formbuilder-publisher-live | The Form Builder publisher catering for services running in live-dev and live-production
+formbuilder-publisher-test | The Form Builder publisher catering for services running in test-dev and test-production
+formbuilder-repos | Contains all the ECR repos required for all the Form Builder applications
+formbuilder-saas-test | Contains the V2 Form Builder Editor and Metadata API applications for the test environment
+formbuilder-services-live-dev | Contains all the form services pods for the live-dev environment
+formbuilder-services-live-production | Contains all the form services pods for the live-production environment
+formbuilder-services-test-dev | Contains all the form services pods for the test-dev environment
+formbuilder-services-test-production | Contains all the form services pods for the test-production environment
+hmcts-complaints-formbuilder-adapter-production | Contains the HMCTS Complaints Adapter for the production environment
+hmcts-complaints-formbuilder-adapter-staging |  Contains the HMCTS Complaints Adapter for the staging environment
 
 {% assign hostings = site.pages
   | where: "hosting", true
