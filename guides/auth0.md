@@ -13,8 +13,18 @@ Currently the only user data we keep is their name and email address, both of wh
 
 The Universal Login screen can be configured directly in the moj-forms tenant dashboard. It is possible to create custom HTML and JS.
 
+There are two editor apps, one for Live and one for Test. Aside from the obvious differences between callback URLs, the Test app also has the username and password fields active in order for the acceptance tests to be able to log in.
+
 ## Debugging
 
 If a developer needs to debug the real login screen then they will need to change the URL that the initial POST request goes to. This resides in the home controller of the Editor app. `/auth/developer` would need to be changed to `/auth/auth0`. They will also need to add `http://localhost:3000/auth/auth0/callback` to the Allowed Callback URLs list and `http://localhost:3000` to the Allowed Logout URLs list. Both are comma separated lists.
+
+You will also need to set the following environment variables:
+
+```
+AUTH0_CLIENT_ID
+AUTH0_CLIENT_SECRET
+AUTH0_DOMAIN
+```
 
 Once those changes are in place, opening the editor locally in an incognito window, or clearing the associated cookie, will allow a login experience very similar to what an end user will see.
