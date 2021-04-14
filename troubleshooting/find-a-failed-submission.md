@@ -60,6 +60,24 @@ You can also see the stack trace of the error:
 Delayed::Job.last.last_error
 ~~~~~~~~
 
+### Try this first
+
+There have been some instances where Kubernetes has not been successful in draining certain pods automatically. As a result of this a common side effect is that a submission might fail as the Submitter is unable to retrieve attachments from the filestore. The filestore responds with a 403 error.
+
+If that is the error you are seeing with the failed job then it is worth restarting the pods first and seeing whether the queue naturally drains. You can get a list of the deployments for a given namespace by running:
+
+~~~~~~~~
+kubectl get deployments -n formbuilder-platform-test-dev
+~~~~~~~~
+
+Then to gracefully restart the pods you pass the name of the deployment. For example, for the deployment fb-user-filestore-test-dev:
+
+~~~~~~~~
+kubectl rollout restart deployments -n formbuilder-platform-test-dev fb-user-filestore-test-dev
+~~~~~~~~
+
+It is at least worth rolling the filestore pods. It may also be worth rolling the submitter pods too. If that still doesn't solve the problem then it might need a manual reply and/or further investigation.
+
 ### Replaying failed jobs
 
 Once you are happy that it is ok to replay the failed job you will need to re-encrypt the payload of the Submission related to the Delayed Job.
