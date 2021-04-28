@@ -21,6 +21,20 @@ The Azure client secret will expire on the 5th April 2023. At this time it will 
 
 Currently if the same user logs in using the different connections there is no link between them so they will not see forms that they created when logged in with a different connection.
 
+## Domain specific allowlisting
+
+Even though the Editor is hard coded to not allow the signup using email addresses that do not end in `@digital.justice.gov.uk` or `@justice.gov.uk` Auth0 also needs to cater for these. This is to prevent the times when a user is logged into several different accounts in the same browser.
+
+To accomplish this there is a rule called `Email domain allowlist` which does some pre authentication javascript to check the email address of the user conforms to what we require.
+
+`Auth Pipeline >> Rules` once you have logged into Auth0 and navigated to the `moj-forms` tenant dashboard.
+
+Currently it is just a hardcoded array: `['justice.gov.uk', 'digital.justice.gov.uk']`.
+
+Any changes to that array can be tested directly in the interface. Be aware that this currently affects both Test and Live environments at the same time, until we separate them out into different tenants in the future. It is also in real time so has the potential to break login for users in Live.
+
+Below the above rule you'll also find the `Slack Notification on User Signup` rule which sends a message to the `#form-builder-deployments` channel whenever a new user signs up. It requires the `SLACK_HOOK_URL` to be set in order for it to work.
+
 ## Debugging
 
 If a developer needs to debug the real login screen then they will need to change the URL that the initial POST request goes to. This resides in the home controller of the Editor app. `/auth/developer` would need to be changed to `/auth/auth0`. They will also need to add `http://localhost:3000/auth/auth0/callback` to the Allowed Callback URLs list and `http://localhost:3000` to the Allowed Logout URLs list. Both are comma separated lists.
