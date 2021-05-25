@@ -11,7 +11,7 @@ Like other MoJ Forms applications, the Editor is deployed in a Continous Deliver
 
 While we come up with a more resilient technical solution to allow for QA testing changes on the Editor, it is possible to manually deploy out a specific branch to the test environment.
 
-Just make some changes to the [circle config](https://github.com/ministryofjustice/fb-editor/blob/main/.circleci/config.yml#L111) workflows to add the name of your branch so it triggers CircleCI to deploy it out. For example, given a branch named `my-amazing-branch`:
+On the branch you are working on just make some changes to the [circle config](https://github.com/ministryofjustice/fb-editor/blob/main/.circleci/config.yml#L111) workflows to add the name of your branch so it triggers CircleCI to deploy it out. For example, given a branch named `my-amazing-branch`:
 
 ```
 workflows:
@@ -28,6 +28,8 @@ workflows:
                 - main
                 - my-amazing-branch
 ```
+
+Pushing up your branch will then trigger CircleCi to deploy it out to the test environment. It might be worth considering commenting out all the jobs in the workflows related to Live and perhaps even Slack notifications.
 
 The example above also comments out the `test` job and the requirement for the job to pass before pushing out the branch. This approach works for pretty much any app should it be required. The recommendation would be that you would add the above changes to a temporary commit that you would remove from your branch before raising the final PR for review.
 
