@@ -33,13 +33,21 @@ If however your branch build fails for some reason Jean Luc will express his dis
 
 ![build failure slack message](/images/build_failure.png)
 
-Once all testing has been completed the Developer can raise a PR from the testable branch as normal for review etc. Once the branch has been merged (and deleted in Github, which is automatic for the Editor repo settings) then the testable Editor can be torn down. There is a rake task which can be run in the editor to accomplish this. Before being able to run this the Developer should have set up their Kubernetes config as [documented in the Cloud Platform user guide](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html#how-to-use-kubectl-to-connect-to-the-cluster).
+Pipeline overview:
+
+![editor deployment pipeline](/images/editor_deployment_pipeline.png)
+
+### Testable Editor teardown
+
+Once all testing has been completed the Developer can raise a PR from the testable branch as normal for review etc. Once the branch has been merged (and deleted in Github, which is automatic for the Editor repo settings) then a job in CircleCI is triggered which runs a rake task:
 
 `bundle exec rails remove:testable_editors`
 
-The task looks for any branches prepended with `testable-` that have been removed from Github but still exist as `deployments` in Kubernetes and then proceeds to remove all the required configuration associated with those specific Editors.
+The task looks for any branches prepended with `testable-` that have been removed from Github but still exist as `deployments` in Kubernetes and then proceeds to remove all the required configuration associated with those specific Editors and should notify in the `#form-builder-deployments` channel in Slack.
 
-This will become an automated process, but for now it is manual.
+It is dependent upon the environment variable `K8S_SAAS_TOKEN` being set. This is the token for the CircleCI service account associated with the `formbuilder-saas-test` namespace. Most other CircleCI jobs use the token associated with the `formbuilder-repos` namespace CircleCI service account.
+
+If for some reason this is not working or the Developer needs to run it independently of CircleCI they can run the same rake task on their laptop. Before being able to run this the Developer should have set up their Kubernetes config as [documented in the Cloud Platform user guide](https://user-guide.cloud-platform.service.justice.gov.uk/documentation/getting-started/kubectl-config.html#how-to-use-kubectl-to-connect-to-the-cluster).
 
 ### Manual Deployments
 
